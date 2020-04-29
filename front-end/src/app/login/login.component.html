@@ -1,0 +1,30 @@
+<div class="col-md-6">
+  <h2 class="text-center"></h2>
+<form  #formdata="ngForm" novalidate (ngSubmit)="loginUser()">
+
+  <div>
+  <input type="number" placeholder="Enter user id" id="id" name="id" [(ngModel)]="objOfUser.userID" #uid="ngModel" required class="form-control" >
+  <div *ngIf="uid.invalid && uid.touched" class="alert alert-danger">
+    <span *ngIf="uid.errors.required">*User ID is mandatory</span>
+    </div>
+
+</div>
+<br>
+<div>
+  <input type="text" placeholder="Enter password" id="pass" name="pass" [(ngModel)]="objOfUser.password" #na="ngModel" required class="form-control" >
+  <div *ngIf="na.invalid && na.touched" class="alert alert-danger">
+    <span *ngIf="na.errors.required">*Password is Mandatory</span>
+    </div>
+
+</div>
+
+<br>
+
+<div>
+<input type="submit" value="Login" class="btn btn-danger" [disabled]="!formdata.valid">
+</div>
+</form>
+ 
+</div>
+
+

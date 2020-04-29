@@ -1,0 +1,30 @@
+<div class="col-md-6">
+    <h2 class="text-center"></h2>
+  <form  #formdata="ngForm" novalidate (ngSubmit)="addTransaction()">
+
+    <div>
+    <input type="number" placeholder="Enter Receiver's Id" id="id" name="id"  [(ngModel)]="objOfTranaction.receiver" #usr="ngModel" required class="form-control" >
+    <div *ngIf="usr.invalid && usr.touched" class="alert alert-danger">
+      <span *ngIf="usr.errors.required">*This is Mandatory</span>
+      </div>
+  
+  </div>
+  <br>
+  <div>
+    <input type="text" placeholder="Enter Amount" id="name" name="name"   [(ngModel)]="objOfTranaction.amount" #na="ngModel" required class="form-control" >
+    <div *ngIf="na.invalid && na.touched" class="alert alert-danger">
+      <span *ngIf="na.errors.required">*Amount is Mandatory</span>
+      </div>
+  
+  </div>
+ 
+<br>
+
+  <div>
+  <input type="submit" value="Send Money" class="btn btn-danger" [disabled]="!formdata.valid">
+</div>
+</form>
+   
+</div>
+
+
