@@ -12,6 +12,9 @@ export class RegisterComponent implements OnInit {
   constructor( private refOfUserService:UserService ) { }
 
   objOfUser:User=new User();
+  msg:String;
+  errorMsg:String;
+
 
   ngOnInit(): void {
   }
@@ -20,12 +23,17 @@ export class RegisterComponent implements OnInit {
   {
     this.refOfUserService.registerUser(this.objOfUser).subscribe(data=>
     {
-      //this.objOfUser=data;
+      console.log("data",data);
+      this.msg=data;
+      this.errorMsg=undefined;
+      this.objOfUser=new User();
       alert("User sucessfully registered");
     },
     error=>
     {
-      console.log("erroor occured",error);
+      this.errorMsg=JSON.parse(error.error).message;
+      console.log(error.error);
+      this.msg=undefined
     }
     );
   }
