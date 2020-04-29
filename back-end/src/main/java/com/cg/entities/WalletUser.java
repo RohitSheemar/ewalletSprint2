@@ -1,3 +1,4 @@
+//entity class
 package com.cg.entities;
 
 import javax.persistence.*;
