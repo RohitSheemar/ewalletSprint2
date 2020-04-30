@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { User } from '../user';
+import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-login',
@@ -10,6 +12,8 @@ import { User } from '../user';
 export class LoginComponent implements OnInit {
 
   objOfUser:User=new User();
+  msg:String;
+  errorMsg:String;
   flag: boolean=false;
   forgotflag: boolean=false;
   constructor( private refOfUserService:UserService ) { }
@@ -17,14 +21,9 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-    edit1()
+    edit()
     {
       this.flag=false;
-    }
-
-    edit2()
-    {
-      this.forgotflag=false;
     }
 
     register()
@@ -46,7 +45,6 @@ export class LoginComponent implements OnInit {
     
   loginUser():void
   {
-    alert("User sucessfully loggged in");
     this.refOfUserService.login().subscribe(data=>
     {
       this.objOfUser=data;
@@ -57,6 +55,24 @@ export class LoginComponent implements OnInit {
       console.log("erroor occured",error);
     }
     );
+  }
+
+  
+  addUser(form :NgForm):void
+  {
+    this.refOfUserService.registerUser(this.objOfUser).subscribe(data=>
+    {
+      form.resetForm();
+      alert("User successfully registered");
+  
+  },
+  error=>
+  {
+    //Json.parse function convert string into object to work with
+    alert(JSON.parse(error.error).message);
+    console.log("erroor occured",error);
+  }
+);
   }
 
 }

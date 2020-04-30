@@ -34,7 +34,7 @@
 
 <div class="mt-2 text-center">
   <b>Don't have an account? </b>
-<button (dblclick)="register()" class="btn btn-primary">Register</button>
+<button (click)="register()" class="btn btn-primary">Register</button>
 </div>
 
 </form>
@@ -47,10 +47,10 @@
 
 
 
-<section class="col-md-4 mx-auto" *ngIf="flag">
-  <h2 class="text-center">Register for new account </h2>
+<section class="col-md-3 mx-auto" *ngIf="flag">
+  <b class="text-center">Register for new account </b>
 
-<form  #formdata="ngForm" novalidate (ngSubmit)="edit1()">
+<form  #formdata="ngForm" novalidate (ngSubmit)="addUser(formdata)">
 
 <div>
   <input type="text" placeholder="Enter your full name" id="name" name="name" [(ngModel)]="objOfUser.userName" #un="ngModel" required class="form-control" >
@@ -61,7 +61,7 @@
 <br>
 
 <div>
-  <input type="text" placeholder="Enter phone number" id="phone" name="phone" [(ngModel)]="objOfUser.phoneNumber" #up="ngModel" required class="form-control" >
+  <input type="tel" placeholder="Enter phone number" id="phone" name="phone" [(ngModel)]="objOfUser.phoneNumber" #up="ngModel" required class="form-control" >
   <div *ngIf="up.invalid && up.touched" class="alert alert-danger">
     <span *ngIf="up.errors.required">*Please enter your phone number</span>
   </div>
@@ -69,7 +69,7 @@
 <br>
 
 <div>
-  <input type="text" placeholder="Enter the email address" id="email" name="email" [(ngModel)]="objOfUser.email" #ue="ngModel" required class="form-control" >
+  <input type="email" placeholder="Enter the email address" id="email" name="email" [(ngModel)]="objOfUser.email" #ue="ngModel" required class="form-control" >
   <div *ngIf="ue.invalid && ue.touched" class="alert alert-danger">
     <span *ngIf="ue.errors.required">*Email is required</span>
   </div>
@@ -77,7 +77,15 @@
 <br>
 
 <div>
-  <input type="text" placeholder="Enter the password" id="pass" name="pass" [(ngModel)]="objOfUser.password" #up="ngModel" required class="form-control" >
+  <input type="password" placeholder="Enter the password" id="pass" name="pass" [(ngModel)]="objOfUser.password" #up="ngModel" required class="form-control" >
+  <div *ngIf="up.invalid && up.touched" class="alert alert-danger">
+    <span *ngIf="up.errors.required">*Please enter the password</span>
+  </div>
+</div>
+<br>
+
+<div>
+  <input type="password" placeholder="Enter password again" id="pass" name="pass" [(ngModel)]="objOfUser.password" #up="ngModel" required class="form-control" >
   <div *ngIf="up.invalid && up.touched" class="alert alert-danger">
     <span *ngIf="up.errors.required">*Please enter the password</span>
   </div>
@@ -98,7 +106,7 @@
 <section class="col-md-4 mx-auto" *ngIf="forgotflag">
   <h2 class="text-center">Forgot Password</h2>
 
-<form  #formdata="ngForm" novalidate (ngSubmit)="edit2()">
+<form  #formdata="ngForm" novalidate (ngSubmit)="edit()">
 
 <div>
   <input type="text" placeholder="Enter your user id" id="name" name="name" [(ngModel)]="objOfUser.userName" #un="ngModel" required class="form-control" >
@@ -109,7 +117,7 @@
 <br>
 
 <div>
-  <input type="text" placeholder="Enter phone number" id="phone" name="phone" [(ngModel)]="objOfUser.phoneNumber" #up="ngModel" required class="form-control" >
+  <input type="tel" placeholder="Enter phone number" id="phone" name="phone" [(ngModel)]="objOfUser.phoneNumber" #up="ngModel" required class="form-control" >
   <div *ngIf="up.invalid && up.touched" class="alert alert-danger">
     <span *ngIf="up.errors.required">*Please enter your phone number</span>
   </div>
@@ -119,7 +127,7 @@
 
 
 <div>
-  <input type="text" placeholder="Enter the new password" id="pass" name="pass" [(ngModel)]="objOfUser.password" #up="ngModel" required class="form-control" >
+  <input type="password" placeholder="Enter the new password" id="pass" name="pass" [(ngModel)]="objOfUser.password" #up="ngModel" required class="form-control" >
   <div *ngIf="up.invalid && up.touched" class="alert alert-danger">
     <span *ngIf="up.errors.required">*Please enter the password</span>
   </div>
