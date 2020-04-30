@@ -11,12 +11,6 @@ export class UserService {
   users:User[]=[];
   constructor(private http:HttpClient) { }
 
-  loaddata():Observable<any>
- {
-   let url="http://localhost:1078/user";
-
-   return this.http.get(url);
- }
 
   login():Observable<any>
   {

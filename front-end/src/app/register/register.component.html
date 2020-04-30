@@ -3,7 +3,7 @@
     <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
     <div class="alert alert-danger" *ngIf="errorMsg != undefined" [innerHTML]="errorMsg"></div>
 
-  <form  #formdata="ngForm" novalidate (ngSubmit)="addUser()">
+  <form  #formdata="ngForm" novalidate (ngSubmit)="addUser(formdata)">
   
   <div>
     <input type="text" placeholder="Enter your full name" id="name" name="name" [(ngModel)]="objOfUser.userName" #un="ngModel" required class="form-control" >

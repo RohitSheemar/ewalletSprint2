@@ -1,8 +1,8 @@
-<section class="col-md-3 mx-auto">
-  <h2 class="text-center">Login</h2>
+<section class="col-md-3 mx-auto" *ngIf="!flag && !forgotflag">  
 <form  #formdata="ngForm" novalidate (ngSubmit)="loginUser()">
 
   <div>
+    User ID
   <input type="number" placeholder="Enter user id" id="id" name="id" [(ngModel)]="objOfUser.userID" #uid="ngModel" required class="form-control" >
   <div *ngIf="uid.invalid && uid.touched" class="alert alert-danger">
     <span *ngIf="uid.errors.required">*User ID is mandatory</span>
@@ -11,6 +11,7 @@
 </div>
 <br>
 <div>
+  Password
   <input type="text" placeholder="Enter password" id="pass" name="pass" [(ngModel)]="objOfUser.password" #na="ngModel" required class="form-control" >
   <div *ngIf="na.invalid && na.touched" class="alert alert-danger">
     <span *ngIf="na.errors.required">*Password is Mandatory</span>
@@ -18,18 +19,123 @@
 
 </div>
 
+
+<div class="mt-2 text-right">
+  <button (click)="forgotPassword()" class="btn" >forgot password?</button>
+</div>
+  
+
+  <div>
+    <input type="submit" value="Login" class="btn btn-danger" [disabled]="!formdata.valid">
+  </div>
+
+<br>
 <br>
 
-<div>
-<input type="submit" value="Login" class="btn btn-danger" [disabled]="!formdata.valid">
+<div class="mt-2 text-center">
+  <b>Don't have an account? </b>
+<button (dblclick)="register()" class="btn btn-primary">Register</button>
 </div>
 
-<div class="text-center">
-  <b>Don't have an account? </b>
-  <input type="submit" value="Register" class="btn btn-secondary">
-</div>
 </form>
  
 </section>
+
+
+
+
+
+
+
+<section class="col-md-4 mx-auto" *ngIf="flag">
+  <h2 class="text-center">Register for new account </h2>
+
+<form  #formdata="ngForm" novalidate (ngSubmit)="edit1()">
+
+<div>
+  <input type="text" placeholder="Enter your full name" id="name" name="name" [(ngModel)]="objOfUser.userName" #un="ngModel" required class="form-control" >
+  <div *ngIf="un.invalid && un.touched" class="alert alert-danger">
+    <span *ngIf="un.errors.required">*User name is mandatory</span>
+  </div>
+</div>
+<br>
+
+<div>
+  <input type="text" placeholder="Enter phone number" id="phone" name="phone" [(ngModel)]="objOfUser.phoneNumber" #up="ngModel" required class="form-control" >
+  <div *ngIf="up.invalid && up.touched" class="alert alert-danger">
+    <span *ngIf="up.errors.required">*Please enter your phone number</span>
+  </div>
+</div>
+<br>
+
+<div>
+  <input type="text" placeholder="Enter the email address" id="email" name="email" [(ngModel)]="objOfUser.email" #ue="ngModel" required class="form-control" >
+  <div *ngIf="ue.invalid && ue.touched" class="alert alert-danger">
+    <span *ngIf="ue.errors.required">*Email is required</span>
+  </div>
+</div>
+<br>
+
+<div>
+  <input type="text" placeholder="Enter the password" id="pass" name="pass" [(ngModel)]="objOfUser.password" #up="ngModel" required class="form-control" >
+  <div *ngIf="up.invalid && up.touched" class="alert alert-danger">
+    <span *ngIf="up.errors.required">*Please enter the password</span>
+  </div>
+</div>
+<br>
+
+<div class="mt-2 text-center">
+<input type="submit" value="Register" class="btn btn-danger" [disabled]="!formdata.valid" class="btn btn-danger">
+</div>
+
+</form>
+ 
+</section>
+
+
+
+
+<section class="col-md-4 mx-auto" *ngIf="forgotflag">
+  <h2 class="text-center">Forgot Password</h2>
+
+<form  #formdata="ngForm" novalidate (ngSubmit)="edit2()">
+
+<div>
+  <input type="text" placeholder="Enter your user id" id="name" name="name" [(ngModel)]="objOfUser.userName" #un="ngModel" required class="form-control" >
+  <div *ngIf="un.invalid && un.touched" class="alert alert-danger">
+    <span *ngIf="un.errors.required">*User name is mandatory</span>
+  </div>
+</div>
+<br>
+
+<div>
+  <input type="text" placeholder="Enter phone number" id="phone" name="phone" [(ngModel)]="objOfUser.phoneNumber" #up="ngModel" required class="form-control" >
+  <div *ngIf="up.invalid && up.touched" class="alert alert-danger">
+    <span *ngIf="up.errors.required">*Please enter your phone number</span>
+  </div>
+</div>
+<br>
+
+
+
+<div>
+  <input type="text" placeholder="Enter the new password" id="pass" name="pass" [(ngModel)]="objOfUser.password" #up="ngModel" required class="form-control" >
+  <div *ngIf="up.invalid && up.touched" class="alert alert-danger">
+    <span *ngIf="up.errors.required">*Please enter the password</span>
+  </div>
+</div>
+<br>
+
+<div class="mt-2 text-center">
+<input type="submit" value="Change Password" class="btn btn-danger" [disabled]="!formdata.valid" class="btn btn-danger">
+</div>
+
+</form>
+ 
+</section>
+
+
+
+
 
 
