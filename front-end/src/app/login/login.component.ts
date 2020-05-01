@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
   {
     this.refOfUserService.login().subscribe(data=>
     {
-      this.objOfUser=data;
       alert("User sucessfully loggged in");
     },
     error=>

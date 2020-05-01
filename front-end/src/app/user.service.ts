@@ -23,5 +23,8 @@ export class UserService {
     let url="http://localhost:1078/register";
     return this.http.post(url,userRef,{responseType:'text'});
   }
+
+
+
 }
 
