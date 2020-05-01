@@ -2,7 +2,7 @@ package com.cg.entities;
 
 import javax.persistence.*;
 
-
+//user table
 @Entity
 @Table(name="sprint_user")
 public class WalletUser {
