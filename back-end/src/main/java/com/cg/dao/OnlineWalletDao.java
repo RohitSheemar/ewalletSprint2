@@ -18,7 +18,6 @@ public interface OnlineWalletDao {
 	WalletUser getUser(Integer userId);
 	WalletAccount getAccount(Integer accountId);
 	WalletTransactions getTransaction(Integer transactionId);
-	public List retrieve();
 
 	
 }

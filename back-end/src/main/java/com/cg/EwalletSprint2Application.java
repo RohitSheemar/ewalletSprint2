@@ -26,7 +26,7 @@ public class EwalletSprint2Application implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		System.out.println("Welcome to Online Wallet");
 		
-		 
+		 /*
 		 WalletTransactions wat1=new WalletTransactions(500.0,500.0);
 		 WalletTransactions wat2=new WalletTransactions(500.0,1000.0);
 		 WalletTransactions wat3=new WalletTransactions(500.0,1500.0);
@@ -61,7 +61,7 @@ public class EwalletSprint2Application implements CommandLineRunner{
 		 em.persist(wat2);
 		 em.persist(wat3);
 		 em.persist(wat4);
-
+		 */
 	}
     
 }

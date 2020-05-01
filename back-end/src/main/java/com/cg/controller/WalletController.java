@@ -22,14 +22,10 @@ public class WalletController {
 	@Autowired
 	private OnlineWalletService service;
 	
-	@GetMapping(value="/user")
-	  public List<WalletUser> fetchStudent()
-	  {
-		  return service.retrieve();
-	  }
-
 	
-	
+	/*
+	 * This method will add the user into user table if user enters all the details correctly.
+	 */
 	@PostMapping(value="/register",consumes= {"application/json"})
 	public ResponseEntity<String> registerUser(@RequestBody WalletUser user)
 	{   
@@ -38,7 +34,9 @@ public class WalletController {
 		
 	}
 	
-		
+	/*
+	 * This method will return the wallet account of user if the login credentials are correct.
+	 */	
 	@PostMapping("/login")
 	public ResponseEntity<Integer> login(@PathVariable int userId, String password)
 	{

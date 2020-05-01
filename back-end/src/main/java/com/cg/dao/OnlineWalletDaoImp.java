@@ -1,10 +1,7 @@
 package com.cg.dao;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -16,36 +13,46 @@ public class OnlineWalletDaoImp implements OnlineWalletDao {
     @PersistenceContext
 	private EntityManager entityManager;
 	
+
+	/*
+	 *This method will create the user table in the database.
+	 */
 	@Override
 	public void persistUser(WalletUser user) {
 		entityManager.persist(user);
 	}
 	
+
+	/*
+	 *This method will create the wallet account table with reference to user table.	 
+	 */
 	@Override
 	public void persistAccount(WalletAccount account)
 	{
 		entityManager.persist(account);
 	}
+
+	/*
+	 *This method will create the transaction table with reference to account table.	 
+	 */
 	@Override
 	public void persistTransaction(WalletTransactions transaction)
 	{
 		entityManager.persist(transaction);
 	}
+	
+	
 	@Override
 	public void flush()
 	{
 		entityManager.flush();
 	}
 	
-
-	@Override
-	public List retrieve() {
-		Query q=entityManager.createQuery("from WalletUser u");
-		return q.getResultList();
-	}
 	
-	
-	
+	/*
+	 *This method will check the user by userId.
+	 *If the userId don't exist in table it will add the user. 
+	 */
     @Override
    	public boolean checkUserByUserId(int userId)
    	{   
@@ -62,6 +69,10 @@ public class OnlineWalletDaoImp implements OnlineWalletDao {
    		return true;
    	}
     
+
+	/*
+	 *This method will retrieve the user from user table by matching the user id.
+	 */
 	@Override 
 	public WalletUser getUserByUserId(int userId)
 	{

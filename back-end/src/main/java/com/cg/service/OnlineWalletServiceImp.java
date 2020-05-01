@@ -18,11 +18,11 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
     @Autowired
     private OnlineWalletDao dao;
     
-    @Override
-	public List retrieve() {
-		return dao.retrieve();
-	}
     
+    /*
+	 * This method will call the Dao class to check whether the user with the entered id exist in database or not.
+	 * It will also check the combination of userId and password to get logged in. 
+	 */
     @Override
     public Integer login(int userId, String password)
     {   
@@ -35,7 +35,12 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
     		
     }
     
-   
+    
+    
+    /*
+	 * This method will call the Dao class to let the user fill the user details to register for new account.
+	 * It will then add the details to the user table and wallet account table also.
+	 */
 	@Override
 	public void registerUser(WalletUser user) {
 		
@@ -47,7 +52,9 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 	}
 
 
-	
+	/*
+	 * This method will call ensure that any of the user details must not already exist in database to register for new account  
+	 */
 	private boolean checkUserId(int userId) {
 		 if(dao.checkUserByUserId(userId)==true)
 			 throw new WrongValueException("Entered UserId is already present, please enter another login Id");
