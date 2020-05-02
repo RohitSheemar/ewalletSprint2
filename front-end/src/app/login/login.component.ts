@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   constructor( private refOfUserService:UserService ) { }
 
   ngOnInit(): void {
+    window.localStorage.removeItem('token');
   }
 
     edit()
@@ -56,7 +57,6 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  
   addUser(form :NgForm):void
   {
     this.refOfUserService.registerUser(this.objOfUser).subscribe(data=>
