@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
 import com.cg.entities.*;
+import com.cg.exceptions.UserException;
 
 @Repository
 public class OnlineWalletDaoImp implements OnlineWalletDao {
@@ -56,7 +57,7 @@ public class OnlineWalletDaoImp implements OnlineWalletDao {
     @Override
    	public boolean checkUserByUserId(int userId)
    	{   
-   		String Qstr="SELECT user.userId FROM WalletUser user WHERE user.userId= :userId";
+   		String Qstr="SELECT user.userID FROM WalletUser user WHERE user.userID= :userId";
    		TypedQuery<String> query=entityManager.createQuery(Qstr,String.class).setParameter("userId",userId);
    		try
    		{
@@ -102,6 +103,23 @@ public class OnlineWalletDaoImp implements OnlineWalletDao {
 		WalletTransactions transaction=entityManager.find(WalletTransactions.class, transactionId);
 		return transaction;
 	}
+	
+	@Override
+	public boolean addUser(WalletUser user) {
+		entityManager.persist(user);
+		return true;
+	}
+	
+
+	@Override
+	public boolean signin(int userId, String password) throws UserException {
+		String Qstr = "SELECT password FROM WalletUser user WHERE user.emailId="+ userId;
+		TypedQuery<WalletUser> query = entityManager.createQuery(Qstr, WalletUser.class);
+		//Users users=em.find(Users.class, mailId);
+		if(query==null) throw new UserException("User not registered");
+		return true;
+	}
+
 	
 	
 }

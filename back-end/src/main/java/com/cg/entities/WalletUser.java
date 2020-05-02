@@ -2,7 +2,7 @@ package com.cg.entities;
 
 import javax.persistence.*;
 
-//user table
+
 @Entity
 @Table(name="sprint_user")
 public class WalletUser {
@@ -82,6 +82,14 @@ public class WalletUser {
 		this.email = email;
 		this.accountDetail = accountDetail;
 	}
+
+	@Override
+	public String toString() {
+		return "WalletUser [userID=" + userID + ", userName=" + userName + ", password=" + password + ", phoneNumber="
+				+ phoneNumber + ", email=" + email + "]";
+	}
+	
+	
 
 	
 	

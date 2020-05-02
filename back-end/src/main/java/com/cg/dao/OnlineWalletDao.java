@@ -1,10 +1,9 @@
 package com.cg.dao;
 
-import java.util.List;
-
 import com.cg.entities.WalletAccount;
 import com.cg.entities.WalletTransactions;
 import com.cg.entities.WalletUser;
+import com.cg.exceptions.UserException;
 
 public interface OnlineWalletDao {
 	void persistUser(WalletUser user);
@@ -18,6 +17,8 @@ public interface OnlineWalletDao {
 	WalletUser getUser(Integer userId);
 	WalletAccount getAccount(Integer accountId);
 	WalletTransactions getTransaction(Integer transactionId);
+	boolean addUser(WalletUser user);
+	boolean signin(int userId, String password) throws UserException;
 
 	
 }

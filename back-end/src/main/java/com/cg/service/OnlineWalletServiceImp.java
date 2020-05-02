@@ -1,7 +1,5 @@
 package com.cg.service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +58,20 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 			 throw new WrongValueException("Entered UserId is already present, please enter another login Id");
 		else 
 			return true;
+	}
+	
+	@Override
+	public boolean addUser(WalletUser user) {
+		WalletAccount account=new WalletAccount(0.00,null);
+		dao.persistAccount(account);
+		user.setAccountDetail(account);
+		return dao.addUser(user);
+
+	}
+	
+	@Override
+	public boolean signin(int userId, String password) throws UserException {
+		return dao.signin(userId, password);
 	}
 	
 
