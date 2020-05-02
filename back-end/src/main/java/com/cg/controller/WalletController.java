@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -19,7 +20,6 @@ import com.cg.entities.WalletUser;
 import com.cg.exceptions.UserException;
 import com.cg.service.*;
 
-@CrossOrigin
 @RestController
 public class WalletController {
 
@@ -31,23 +31,23 @@ public class WalletController {
 	 * This method will add the user into user table if user enters all the details correctly.
 	 */
 	
+	@CrossOrigin
 	@PostMapping("/add")
-	public ResponseEntity<String> addUser(@Valid @RequestBody WalletUser user, BindingResult br) throws UserException{
-		System.out.println(user.toString());
+	public String addUser(@Valid @RequestBody WalletUser user, BindingResult br) throws UserException{
 		
 		String err="";
 		if(br.hasErrors()) {
 			List<FieldError> errors=br.getFieldErrors();
 			for(FieldError error : errors)
-				err= err + error.getDefaultMessage() + " ";
+				err= err + error.getDefaultMessage() + "<br>";
 			throw new UserException(err);
 		}
 		try {
 			service.addUser(user);
-			return new ResponseEntity<String>("The User is Registered successfully",HttpStatus.OK);
+			return "The User is Registered successfully" ;
 		}
-		catch(Exception e) {
-			throw new UserException("Please enter valid Password or Contact Number or Email Id");
+		catch(DataIntegrityViolationException ex) {
+			throw new UserException("Please enter valid user details");
 		}
 	}
 

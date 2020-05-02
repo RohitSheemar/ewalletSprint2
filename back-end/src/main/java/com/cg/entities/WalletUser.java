@@ -3,10 +3,18 @@ package com.cg.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 
 @Entity
 @Table(name="sprint_user")
+
+@DynamicUpdate(true)
+@DynamicInsert(true)
+
 public class WalletUser {
 	
 	@Id
@@ -14,18 +22,19 @@ public class WalletUser {
 	private int userID;
 	
 	@NotEmpty(message="username is mandatory")
-	@Column(length=20)
+	@Size(min=3, max=20, message="length can be between 3 and 20")
+	@Pattern(regexp="([A-Za-z]+)|([A-Za-z]+[ ][A-Za-z]+)", message=": Only alphabets and one space is allowed")
 	private String userName;
 	
-	@Column()
 	@NotEmpty(message="password is mandatory")
+	@Pattern(regexp="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,14}$", message=": Password must contain one number,one alphabet,one special character and size should be at least 8 and not more than 14 characters")
 	private String password;
 	
-	@Column(unique=true)
-	@Pattern(regexp="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,14}$", message=": Password must contain one number,one alphabet,one special character and size should be at least 8 characters and not more than 14 characters")
+	@Column(unique = true)
+	@Pattern(regexp="[1-9][0-9]{9}", message=": Phone number must contain 10 digits")
 	private String phoneNumber;
 	
-	@Column(unique=true)
+	@Column
 	@NotEmpty(message="email id is mandatory")
 	private String email;	
 	

@@ -41,12 +41,6 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 	 */
 
 
-
-	/*
-	 * This method will call ensure that any of the user details must not already exist in database to register for new account  
-	 */
-	
-	
 	@Override
 	public boolean addUser(WalletUser user) {
 		WalletAccount account=new WalletAccount(0.00,null);
@@ -55,6 +49,12 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 		return dao.addUser(user);
 
 	}
+	
+	/*
+	 * This method will call ensure that any of the user details must not already exist in database to register for new account  
+	 */
+	
+	
 	
 	@Override
 	public boolean signin(int userId, String password) throws UserException {
