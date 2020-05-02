@@ -30,26 +30,9 @@ public class WalletController {
 	/*
 	 * This method will add the user into user table if user enters all the details correctly.
 	 */
-	@PostMapping(value="/register",consumes= {"application/json"})
-	public ResponseEntity<String> register(@RequestBody WalletUser user)
-	{   
-		service.registerUser(user);
-		return new ResponseEntity<String>("The User is Registered successfully",HttpStatus.OK);
-		
-	}
-	
-	/*
-	 * This method will return the wallet account of user if the login credentials are correct.
-	 */	
-	@PostMapping("/login")
-	public ResponseEntity<Integer> login(@PathVariable int userId, String password)
-	{
-		Integer uId=service.login(userId, password);
-		return new ResponseEntity<Integer>(uId,HttpStatus.OK);
-	}
 	
 	@PostMapping("/add")
-	public String addUser(@Valid @RequestBody WalletUser user, BindingResult br) throws UserException{
+	public ResponseEntity<String> addUser(@Valid @RequestBody WalletUser user, BindingResult br) throws UserException{
 		System.out.println(user.toString());
 		
 		String err="";
@@ -61,13 +44,25 @@ public class WalletController {
 		}
 		try {
 			service.addUser(user);
-			return "User Added";
+			return new ResponseEntity<String>("The User is Registered successfully",HttpStatus.OK);
 		}
 		catch(Exception e) {
 			throw new UserException("Please enter valid Password or Contact Number or Email Id");
 		}
 	}
+
 	
+	/*
+	 * This method will return the wallet account of user if the login credentials are correct.
+	 */	
+	@PostMapping("/login")
+	public ResponseEntity<Integer> login(@PathVariable int userId, String password)
+	{
+		Integer uId=service.login(userId, password);
+		return new ResponseEntity<Integer>(uId,HttpStatus.OK);
+	}
+	
+		
 	@PostMapping("/signin")
 	public String getMailId(@Valid @RequestBody WalletUser user, BindingResult br) throws UserException{
 		

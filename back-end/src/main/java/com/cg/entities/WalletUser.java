@@ -1,6 +1,8 @@
 package com.cg.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 
 @Entity
@@ -10,9 +12,21 @@ public class WalletUser {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="user_seq")
 	private int userID;
+	
+	@NotEmpty(message="username is mandatory")
+	@Column(length=20)
 	private String userName;
+	
+	@Column()
+	@NotEmpty(message="password is mandatory")
 	private String password;
+	
+	@Column(unique=true)
+	@Pattern(regexp="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,14}$", message=": Password must contain one number,one alphabet,one special character and size should be at least 8 characters and not more than 14 characters")
 	private String phoneNumber;
+	
+	@Column(unique=true)
+	@NotEmpty(message="email id is mandatory")
 	private String email;	
 	
 	@OneToOne(cascade=CascadeType.ALL)

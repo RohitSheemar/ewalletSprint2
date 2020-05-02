@@ -39,26 +39,13 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 	 * This method will call the Dao class to let the user fill the user details to register for new account.
 	 * It will then add the details to the user table and wallet account table also.
 	 */
-	@Override
-	public void registerUser(WalletUser user) {
-		
-		checkUserId(user.getUserID() );
-		WalletAccount account=new WalletAccount(0.00,null);
-	    dao.persistAccount(account);
-	    user.setAccountDetail(account);
-		dao.persistUser(user);
-	}
+
 
 
 	/*
 	 * This method will call ensure that any of the user details must not already exist in database to register for new account  
 	 */
-	private boolean checkUserId(int userId) {
-		 if(dao.checkUserByUserId(userId)==true)
-			 throw new WrongValueException("Entered UserId is already present, please enter another login Id");
-		else 
-			return true;
-	}
+	
 	
 	@Override
 	public boolean addUser(WalletUser user) {
