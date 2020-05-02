@@ -14,13 +14,13 @@ export class UserService {
 
   login():Observable<any>
   {
-    let url="http://localhost:1078/login";
+    let url="http://localhost:1078/signin";
     return this.http.get(url);
   }
 
   registerUser(userRef:User):Observable<any>
   {
-    let url="http://localhost:1078/register";
+    let url="http://localhost:1078/add";
     return this.http.post(url,userRef,{responseType:'text'});
   }
 

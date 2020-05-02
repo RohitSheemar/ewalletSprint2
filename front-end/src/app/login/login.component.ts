@@ -61,8 +61,11 @@ export class LoginComponent implements OnInit {
   {
     this.refOfUserService.registerUser(this.objOfUser).subscribe(data=>
     {
+      this.objOfUser=data;
+      alert("User successfully registered.  Login now to access your account ");
       form.resetForm();
-      alert("User successfully registered");
+
+      this.flag=false;
   
   },
   error=>
