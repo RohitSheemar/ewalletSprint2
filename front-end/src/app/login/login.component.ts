@@ -19,12 +19,18 @@ export class LoginComponent implements OnInit {
   constructor( private refOfUserService:UserService ) { }
 
   ngOnInit(): void {
-    window.localStorage.removeItem('token');
+    //window.localStorage.removeItem('token');
   }
 
     edit()
     {
       this.flag=false;
+    }
+
+    login()
+    {
+      this.flag=false;
+      this.forgotflag=false;
     }
 
     register()
@@ -57,24 +63,25 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  addUser(form :NgForm):void
+  addUser(form:NgForm)
   {
-    this.refOfUserService.registerUser(this.objOfUser).subscribe(data=>
+    this.refOfUserService.registerUser(this.objOfUser).subscribe((data)=>
     {
-      this.objOfUser=data;
-      alert("User successfully registered.  Login now to access your account ");
+      console.log("data",data);
+      this.msg=data;
+      this.errorMsg=undefined;
+      this.objOfUser=new User();
       form.resetForm();
 
-      this.flag=false;
+     // this.flag=false;
   
   },
   error=>
   {
     //Json.parse function convert string into object to work with
-    alert(JSON.parse(error.error).message);
-    console.log("erroor occured",error);
-  }
-);
+    this.errorMsg=JSON.parse(error.error).message;
+    console.log(error.error);
+    this.msg=undefined});
   }
 
 }
