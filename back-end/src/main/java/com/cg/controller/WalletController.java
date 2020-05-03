@@ -1,17 +1,14 @@
 package com.cg.controller;
 
 import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,16 +52,11 @@ public class WalletController {
 	/*
 	 * This method will return the wallet account of user if the login credentials are correct.
 	 */	
-	@PostMapping("/login")
-	public ResponseEntity<Integer> login(@PathVariable int userId, String password)
-	{
-		Integer uId=service.login(userId, password);
-		return new ResponseEntity<Integer>(uId,HttpStatus.OK);
-	}
 	
-		
-	@PostMapping("/signin")
-	public String getMailId(@Valid @RequestBody WalletUser user, BindingResult br) throws UserException{
+	
+	@CrossOrigin
+	@PostMapping("/user")
+	public String loginUser(@Valid @RequestBody WalletUser user, BindingResult br) throws UserException{
 		
 		String err="";
 		if(br.hasErrors()) {
@@ -74,13 +66,12 @@ public class WalletController {
 			throw new UserException(err);
 		}
 		try {
-			service.signin(user.getUserID() , user.getPassword());
-			return "Login Successful";
+			service.login(user.getEmail() , user.getPassword());
+			return "The User is logged in successfully" ;
 		}
-		catch(Exception e) {
-			throw new UserException("Please enter valid userId and Password");
+		catch(DataIntegrityViolationException ex) {
+			throw new UserException("Please enter valid id and password");
 		}
 	}
-	
-		
+			
 }

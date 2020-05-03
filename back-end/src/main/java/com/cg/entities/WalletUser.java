@@ -10,10 +10,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 
 @Entity
-@Table(name="sprint_user")
+@Table(name="ewallet_user")
 
-@DynamicUpdate(true)
-@DynamicInsert(true)
 
 public class WalletUser {
 	

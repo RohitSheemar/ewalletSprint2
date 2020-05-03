@@ -21,17 +21,14 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 	 * This method will call the Dao class to check whether the user with the entered id exist in database or not.
 	 * It will also check the combination of userId and password to get logged in. 
 	 */
-    @Override
-    public Integer login(int userId, String password)
-    {   
-    	if(dao.checkUserByUserId(userId)==false)
-    		throw new WrongValueException("The entered user id does not exist, Please enter a valid userId");
-    	WalletUser user=dao.getUserByUserId(userId);
-    	if(user.getPassword().equals(password)==false)
-    		throw new ValidationException("The userId and password combination does not match");
-    	return user.getUserID();
-    		
-    }
+   
+    
+
+	@Override
+	public boolean login(String email, String password) throws UserException {
+		return dao.login(email, password);
+	}
+
     
     
     
@@ -55,12 +52,7 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 	 */
 	
 	
-	
-	@Override
-	public boolean signin(int userId, String password) throws UserException {
-		return dao.signin(userId, password);
-	}
-	
+		
 
     	
 }

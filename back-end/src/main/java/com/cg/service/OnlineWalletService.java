@@ -5,8 +5,7 @@ import com.cg.exceptions.UserException;
 
 public interface OnlineWalletService {
 	
-	Integer login(int userId, String password);
 	boolean addUser(WalletUser user);
-	boolean signin(int userId, String password) throws UserException;
+	boolean login(String email, String password) throws UserException;
 }
   

@@ -5,11 +5,11 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name="sprint_wallet")
+@Table(name="ewallet_acc")
 public class WalletAccount {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="acc_seq")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="user_seq")
 	private int accountID;
 	
 	private Double accountBalance;
