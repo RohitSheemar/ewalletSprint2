@@ -9,7 +9,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,24 +57,37 @@ public class WalletController {
 	 */	
 	
 	
+	// login function using emailId and password
 	@CrossOrigin
-	@PostMapping("/user")
-	public String loginUser(@Valid @RequestBody WalletUser user, BindingResult br) throws UserException{
-		
-		String err="";
-		if(br.hasErrors()) {
-			List<FieldError> errors=br.getFieldErrors();
-			for(FieldError error : errors)
-				err= err + error.getDefaultMessage() + " ";
-			throw new UserException(err);
-		}
+	@GetMapping("/login/{email}/{password}")
+	public int login(@PathVariable("email") String email, @PathVariable("password") String password) throws UserException{
 		try {
-			service.login(user.getEmail() , user.getPassword());
-			return "The User is logged in successfully" ;
+			return service.login(email, password);
+			
 		}
-		catch(DataIntegrityViolationException ex) {
-			throw new UserException("Please enter valid id and password");
+		catch(Exception e) {
+			throw new UserException(e.getMessage());
 		}
 	}
-			
+	
+	/*
+	 * This method will check the user by matching with user id and update the password.
+	 */
+	
+	// update user function using userId
+	@CrossOrigin
+	@PutMapping("/update/{userId}")
+	public String updateUser(@PathVariable("userID") int userID, @RequestBody WalletUser user) throws UserException{
+		System.out.println(user.toString());
+		try {
+			String message = service.updateUser(user, userID);
+		    return message;
+		}
+		catch(Exception e) {
+		    throw new UserException(e.getMessage());
+		}
+	}
+
+	
+		
 }

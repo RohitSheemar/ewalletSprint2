@@ -3,7 +3,6 @@ package com.cg.dao;
 import com.cg.entities.WalletAccount;
 import com.cg.entities.WalletTransactions;
 import com.cg.entities.WalletUser;
-import com.cg.exceptions.UserException;
 
 public interface OnlineWalletDao {
 	void persistAccount(WalletAccount account);
@@ -12,7 +11,13 @@ public interface OnlineWalletDao {
 
 
 	boolean addUser(WalletUser user);
-	boolean login(String email, String password) throws UserException;
+
+	boolean checkUserByEmail(String email);
+	
+	WalletUser getUserByEmail(String email);
+	
+	boolean update(WalletUser user, int userID);
+
 
 	
 }

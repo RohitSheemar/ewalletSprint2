@@ -22,13 +22,22 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 	 * It will also check the combination of userId and password to get logged in. 
 	 */
    
+ // login function, validating email id and password
+ 	@Override
+ 	public int login(String email, String password) throws UserException{   
+     	if(dao.checkUserByEmail(email)==false)
+     		throw new UserException("The entered User does not exist, Please enter a valid email");
+     	WalletUser user=dao.getUserByEmail(email);
+
+     	if(user.getPassword().equals(password)==false)
+     		throw new UserException("The email and password Combination does not match");
+
+     	System.out.println("Login successful with "+user.getUserID());
+
+     	return user.getUserID() ;
+     	
+     }
     
-
-	@Override
-	public boolean login(String email, String password) throws UserException {
-		return dao.login(email, password);
-	}
-
     
     
     
@@ -52,6 +61,15 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 	 */
 	
 	
+	// update function
+		@Override
+		public String updateUser(WalletUser user, int userID) throws UserException{
+			if(dao.update(user, userID)==false)
+				throw new UserException("No details exist for given User");
+			return "user details updated";	
+		}
+	
+
 		
 
     	
