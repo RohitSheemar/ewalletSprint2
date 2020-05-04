@@ -1,44 +1,33 @@
-<section class="col-md-3 mx-auto" *ngIf="!flag && !forgotflag">  
-<form  #formdata="ngForm" novalidate (ngSubmit)="loginUser()">
+<section class="col-md-4 mx-auto" *ngIf="!flag && !forgotflag"> 
+  <div class="mt-2 text-center"> <h4>Login</h4></div>
+  <br>
+  <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+  <div class="alert alert-danger" *ngIf="errorMsg != undefined" [innerHTML] = "errorMsg"></div>
+<form  #formdata="ngForm" (ngSubmit)="loginUser(formdata)">
 
-  <div>
-    User ID
-  <input type="number" placeholder="Enter user id" id="id" name="id" [(ngModel)]="objOfUser.userID" #uid="ngModel" required class="form-control" >
-  <div *ngIf="uid.invalid && uid.touched" class="alert alert-danger">
-    <span *ngIf="uid.errors.required">*User ID is mandatory</span>
-    </div>
+<div>Email ID</div>
+<div ><input type="email" placeholder="Enter the email id" name="email" [(ngModel)]="objOfUser.email" #ue="ngModel" required class="form-control" ></div>
+<div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="ue.invalid && ue.touched" > *Email id is required</div>
+<br>   
+<div>Password</div>
+<div><input type="password" placeholder="Enter the password" name="pass" [(ngModel)]="objOfUser.password" #up="ngModel" required class="form-control" ></div>
+<div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="up.invalid && up.touched" > *Password is required</div>
 
-</div>
-<br>
-<div>
-  Password
-  <input type="text" placeholder="Enter password" id="pass" name="pass" [(ngModel)]="objOfUser.password" #na="ngModel" required class="form-control" >
-  <div *ngIf="na.invalid && na.touched" class="alert alert-danger">
-    <span *ngIf="na.errors.required">*Password is Mandatory</span>
-    </div>
-
-</div>
-
-
-<div class="mt-2 text-right">
+<div class="text-right">
   <button (click)="forgotPassword()" class="btn" >forgot password?</button>
 </div>
-  
 
-  <div>
-    <input type="submit" value="Login" class="btn btn-danger" [disabled]="!formdata.valid">
-  </div>
-
-<br>
+<div >
+  <input type="submit" value="Login" class="btn btn-success" [disabled]="!formdata.valid">
+</div>
 <br>
 
-<div class="mt-2 text-center">
-  <b>Don't have an account? </b>
-<button (click)="register()" class="btn btn-primary">Register</button>
+<div class="text-center">
+  <b> Don't have an account?  </b> 
+  <input type="submit" (click)="register()" value="Register" class="btn btn-danger">
 </div>
 
 </form>
- 
 </section>
 
 
@@ -46,8 +35,7 @@
 
 
 
-
-<section class="col-md-3 mx-auto" *ngIf="flag">
+<section class="col-md-4 mx-auto" *ngIf="flag">
   <div class="mt-2 text-center"> <b>Register for new account </b></div>
   <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
   <div class="alert alert-danger" *ngIf="errorMsg != undefined" [innerHTML] = "errorMsg"></div>
@@ -57,20 +45,19 @@
 
 <div>User Name</div>
 <div><input type="text" placeholder="Enter your full name" name="uname" [(ngModel)]="objOfUser.userName" #un="ngModel" required class="form-control" /></div>
-<div class="alert alert-danger" *ngIf="un.invalid && un.touched" >User name is required </div>
-
+<div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="un.invalid && un.touched" > *User name is required </div>
+<br>
 <div>Phone Number</div>
 <div><input type="text" placeholder="Enter phone number" name="phone" [(ngModel)]="objOfUser.phoneNumber" #um="ngModel" required class="form-control" ></div>
-<div class="alert alert-danger" *ngIf="um.invalid && um.touched" >Phone number is required</div>
-
+<div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="um.invalid && um.touched" > *Phone number is required</div>
+<br>
 <div>Email ID</div>
 <div><input type="email" placeholder="Enter the email address" name="email" [(ngModel)]="objOfUser.email" #ue="ngModel" required class="form-control" ></div>
-<div class="alert alert-danger" *ngIf="ue.invalid && ue.touched" >Enail is required</div>
-    
+<div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="ue.invalid && ue.touched" > *Email id is required</div>
+<br>    
 <div>Password</div>
 <div><input type="password" placeholder="Enter the password" name="pass" [(ngModel)]="objOfUser.password" #up="ngModel" required class="form-control" ></div>
-<div class="alert alert-danger" *ngIf="up.invalid && up.touched" >Password is required</div>
-<br>
+<div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="up.invalid && up.touched" > *Password is required</div>
 
 <div>
 <input type="submit" value="Register" [disabled]="!formdata.valid" class="btn btn-danger">
@@ -79,7 +66,7 @@
 
 <div class="mt-2 text-center">
   <b>Already registered ? </b>
-<button (click)="login()" class="btn btn-primary">Login</button>
+  <input type="submit" (click)="login()" value="Login" class="btn btn-success">
 </div>
 
 </form>
@@ -87,40 +74,20 @@
 
 
 
+<section class="col-md-3 mx-auto" *ngIf="forgotflag"> 
+  <div class="mt-2 text-center"> <b>Forgot Password</b></div>
+  <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+  <div class="alert alert-danger" *ngIf="errorMsg != undefined" [innerHTML] = "errorMsg"></div>
 
-<section class="col-md-4 mx-auto" *ngIf="forgotflag">
-  <h2 class="text-center">Forgot Password</h2>
+<form  #formdata="ngForm" novalidate (ngSubmit)="update(formdata)">
 
-<form  #formdata="ngForm" novalidate (ngSubmit)="edit()">
-
-<div>
-  <input type="text" placeholder="Enter your user id" id="name" name="name" [(ngModel)]="objOfUser.userName" #un="ngModel" required class="form-control" >
-  <div *ngIf="un.invalid && un.touched" class="alert alert-danger">
-    <span *ngIf="un.errors.required">*User name is mandatory</span>
-  </div>
-</div>
-<br>
-
-<div>
-  <input type="tel" placeholder="Enter phone number" id="phone" name="phone" [(ngModel)]="objOfUser.phoneNumber" #up="ngModel" required class="form-control" >
-  <div *ngIf="up.invalid && up.touched" class="alert alert-danger">
-    <span *ngIf="up.errors.required">*Please enter your phone number</span>
-  </div>
-</div>
-<br>
-
-
-
-<div>
-  <input type="password" placeholder="Enter the new password" id="pass" name="pass" [(ngModel)]="objOfUser.password" #up="ngModel" required class="form-control" >
-  <div *ngIf="up.invalid && up.touched" class="alert alert-danger">
-    <span *ngIf="up.errors.required">*Please enter the password</span>
-  </div>
-</div>
-<br>
+  <div>User ID</div>
+  <div><input type="number" placeholder="Enter the user id" name="userId" [(ngModel)]="objOfUser.userID" #ue="ngModel" required class="form-control" ></div>
+  <div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="ue.invalid && ue.touched" > *User id is required</div>
+  <br>
 
 <div class="mt-2 text-center">
-<input type="submit" value="Change Password" class="btn btn-danger" [disabled]="!formdata.valid" class="btn btn-danger">
+<input type="submit" value="Proceed" class="btn btn-danger" [disabled]="!formdata.valid" class="btn btn-danger">
 </div>
 
 </form>

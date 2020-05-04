@@ -11,21 +11,20 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
+  user:User[]=[];
+
   objOfUser:User=new User();
-  msg:String;
-  errorMsg:String;
+  msg:string;
+  errorMsg:string;
   flag: boolean=false;
+  userid:string;
   forgotflag: boolean=false;
   constructor( private refOfUserService:UserService ) { }
 
   ngOnInit(): void {
-    //window.localStorage.removeItem('token');
-  }
+    localStorage.setItem('user',JSON.stringify(this.objOfUser));
 
-    edit()
-    {
-      this.flag=false;
-    }
+  }
 
     login()
     {
@@ -50,22 +49,48 @@ export class LoginComponent implements OnInit {
     }
 
     
-  loginUser():void
+  loginUser(form:NgForm)
   {
-    this.refOfUserService.login().subscribe(data=>
+    this.refOfUserService.login(this.objOfUser.email,this.objOfUser.password).subscribe(data=>
     {
-      alert("User sucessfully loggged in");
+      console.log("data",data);
+      this.msg=data;
+      this.errorMsg=undefined;
+      this.userid=data;
+      alert("login successful");
+      form.resetForm();
+
     },
     error=>
-    {
-      console.log("erroor occured",error);
-    }
-    );
+      {
+        this.errorMsg=JSON.parse(error.error).message;
+        console.log(error.error);
+        this.msg=undefined});
   }
 
   addUser(form:NgForm)
   {
     this.refOfUserService.registerUser(this.objOfUser).subscribe((data)=>
+    {
+      console.log("data",data);
+      this.msg=data;
+      this.errorMsg=undefined;
+      this.objOfUser=new User();
+      form.resetForm();
+  
+  },
+  error=>
+  {
+    //Json.parse function convert string into object to work with
+    this.errorMsg=JSON.parse(error.error).message;
+    console.log(error.error);
+    this.msg=undefined});
+  }
+
+
+  update(form:NgForm)
+  {
+    this.refOfUserService.updateUser(this.objOfUser).subscribe((data)=>
     {
       console.log("data",data);
       this.msg=data;
@@ -79,7 +104,6 @@ export class LoginComponent implements OnInit {
   error=>
   {
     //Json.parse function convert string into object to work with
-    this.errorMsg=JSON.parse(error.error).message;
     console.log(error.error);
     this.msg=undefined});
   }
