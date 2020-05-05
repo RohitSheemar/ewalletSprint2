@@ -59,10 +59,10 @@ public class WalletController {
 	
 	// login function using emailId and password
 	@CrossOrigin
-	@GetMapping("/login/{email}/{password}")
-	public int login(@PathVariable("email") String email, @PathVariable("password") String password) throws UserException{
+	@GetMapping("/login/{phoneNumber}/{password}")
+	public String login(@PathVariable("phoneNumber") String phoneNumber, @PathVariable("password") String password) throws UserException{
 		try {
-			return service.login(email, password);
+			return service.login(phoneNumber, password);
 			
 		}
 		catch(Exception e) {

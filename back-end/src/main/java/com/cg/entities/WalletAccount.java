@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name="ewallet_acc")
+@Table(name="ew_acc")
 public class WalletAccount {
 	
 	@Id

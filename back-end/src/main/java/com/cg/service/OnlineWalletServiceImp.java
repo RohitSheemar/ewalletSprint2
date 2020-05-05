@@ -24,17 +24,17 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
    
  // login function, validating email id and password
  	@Override
- 	public int login(String email, String password) throws UserException{   
-     	if(dao.checkUserByEmail(email)==false)
-     		throw new UserException("The entered User does not exist, Please enter a valid email");
-     	WalletUser user=dao.getUserByEmail(email);
+ 	public String login(String phoneNumber, String password) throws UserException{   
+     	if(dao.checkUserByEmail(phoneNumber)==false)
+     		throw new UserException("The entered User does not exist, Please enter a valid phone number");
+     	WalletUser user=dao.getUserByEmail(phoneNumber);
 
      	if(user.getPassword().equals(password)==false)
-     		throw new UserException("The email and password Combination does not match");
+     		throw new UserException("The phone and password Combination does not match");
 
-     	System.out.println("Login successful with "+user.getUserID());
+     	System.out.println("Login successful with phone number "+user.getPhoneNumber() );
 
-     	return user.getUserID() ;
+     	return user.getPhoneNumber() ;
      	
      }
     
@@ -57,7 +57,7 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 	}
 	
 	/*
-	 * This method will call ensure that any of the user details must not already exist in database to register for new account  
+	 * This method will update the user password if user id exist in database. 
 	 */
 	
 	
@@ -65,8 +65,8 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 		@Override
 		public String updateUser(WalletUser user, int userID) throws UserException{
 			if(dao.update(user, userID)==false)
-				throw new UserException("No details exist for given User");
-			return "user details updated";	
+				throw new UserException("No user exists for given user id");
+			return "user password updated";	
 		}
 	
 

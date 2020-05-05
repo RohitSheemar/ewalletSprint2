@@ -1,17 +1,17 @@
 package com.cg.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="ewallet_user")
+@Table(name="ew_user")
 
 
 public class WalletUser {
 	
-	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="user_seq")
 	private int userID;
 	
@@ -26,10 +26,12 @@ public class WalletUser {
 	
 	@Column(unique = true)
 	@Pattern(regexp="[1-9][0-9]{9}", message=": Phone number must contain 10 digits")
+	@Id
 	private String phoneNumber;
 	
 	@Column
 	@NotEmpty(message="email id is mandatory")
+	@Email
 	private String email;	
 	
 	@OneToOne(cascade=CascadeType.ALL)

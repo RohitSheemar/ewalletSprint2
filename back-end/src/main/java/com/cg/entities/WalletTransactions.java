@@ -2,7 +2,7 @@ package com.cg.entities;
 
 import javax.persistence.*;
 @Entity
-@Table(name="ewallet_trans")
+@Table(name="ew_trans")
 public class WalletTransactions  {
 	
 	@Id

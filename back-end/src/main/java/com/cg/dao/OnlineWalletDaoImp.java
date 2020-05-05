@@ -1,6 +1,7 @@
 package com.cg.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -57,23 +58,29 @@ public class OnlineWalletDaoImp implements OnlineWalletDao {
 
 	// login function, checking whether account exist or not
 	@Override
-	public boolean checkUserByEmail(String email) {
-   		String Qstr="SELECT user.email FROM WalletUser user WHERE user.email= :email";
+	public boolean checkUserByEmail(String phoneNumber) throws NoResultException{
+   		String Qstr="SELECT user.phoneNumber FROM WalletUser user WHERE user.phoneNumber= :phoneNumber";
    		
-   	   		TypedQuery<String> query=entityManager.createQuery(Qstr, String.class).setParameter("email",email);
-   	   		String eml=query.getSingleResult();
-   	   		
-   	   		if(eml.equals(email))
-   	   			return true;
-   	   		   		
-   		return false;
+   	   	TypedQuery<String> query=entityManager.createQuery(Qstr, String.class).setParameter("phoneNumber",phoneNumber);
+   	   	
+	   	String ph=query.getSingleResult();
+   	   	try
+   	   	{
+   	   		ph.equals(phoneNumber);
+   	   	}
+   	   	catch(NoResultException ex)
+   	   	{
+   	   		throw new NoResultException("user not exist");
+   	   	}
+   	   	return true;
+   	   	
    	}
 	
 	// login function, getting email id for matching with password entered
 	@Override
-	public WalletUser getUserByEmail(String email){
-		String Qstr="SELECT user FROM WalletUser user WHERE user.email= :email";
-   		TypedQuery<WalletUser> query=entityManager.createQuery(Qstr, WalletUser.class).setParameter("email",email);
+	public WalletUser getUserByEmail(String phoneNumber){
+		String Qstr="SELECT user FROM WalletUser user WHERE user.phoneNumber= :phoneNumber";
+   		TypedQuery<WalletUser> query=entityManager.createQuery(Qstr, WalletUser.class).setParameter("phoneNumber",phoneNumber);
    		
    		return query.getSingleResult();
    		
