@@ -12,9 +12,9 @@ export class UserService {
 
 
 
-  public login(email:string,password:string):Observable<any>
+  public login(phoneNumber:string,password:string):Observable<any>
   {
-    return this.http.get("http://localhost:1080/login/"+email+"/"+password,{responseType:'text'});
+    return this.http.get("http://localhost:1080/login/"+phoneNumber+"/"+password,{responseType:'text'});
 
   }
 
@@ -24,10 +24,9 @@ export class UserService {
     return this.http.post(url,userRef,{responseType:'text'});
   }
 
-  public updateUser(userRef:User):Observable<any>
+  public updateUser(userId:number):Observable<any>
   {
-    let url="http://localhost:1080/update/{userId}";
-    return this.http.put(url,userRef,{responseType:'text'});
+    return this.http.put("http://localhost:1080/update/"+userId,{responseType:'text'});
   }
 
 

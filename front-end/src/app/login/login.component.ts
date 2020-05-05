@@ -11,52 +11,26 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  user:User[]=[];
-
   objOfUser:User=new User();
   msg:string;
   errorMsg:string;
-  flag: boolean=false;
-  userid:string;
-  forgotflag: boolean=false;
+  userid:number;
   constructor( private refOfUserService:UserService ) { }
 
   ngOnInit(): void {
-    localStorage.setItem('user',JSON.stringify(this.objOfUser));
 
   }
 
-    login()
-    {
-      this.flag=false;
-      this.forgotflag=false;
-    }
-
-    register()
-    {
-      
-      this.flag=true;  
-      alert("You are redirecting to the 'Register page' ");
-    
-    }
-
-    forgotPassword()
-    {
-      
-      this.forgotflag=true;  
-      alert("You are redirecting to the 'change password page' ");
-    
-    }
-
-    
+  
   loginUser(form:NgForm)
   {
-    this.refOfUserService.login(this.objOfUser.email,this.objOfUser.password).subscribe(data=>
+    this.refOfUserService.login(this.objOfUser.phoneNumber ,this.objOfUser.password).subscribe(data=>
     {
-      console.log("data",data);
+      console.log("user id",data);
       this.msg=data;
       this.errorMsg=undefined;
       this.userid=data;
+      sessionStorage.setItem('user id',JSON.stringify(this.userid));
       alert("login successful");
       form.resetForm();
 
@@ -66,46 +40,6 @@ export class LoginComponent implements OnInit {
         this.errorMsg=JSON.parse(error.error).message;
         console.log(error.error);
         this.msg=undefined});
-  }
-
-  addUser(form:NgForm)
-  {
-    this.refOfUserService.registerUser(this.objOfUser).subscribe((data)=>
-    {
-      console.log("data",data);
-      this.msg=data;
-      this.errorMsg=undefined;
-      this.objOfUser=new User();
-      form.resetForm();
-  
-  },
-  error=>
-  {
-    //Json.parse function convert string into object to work with
-    this.errorMsg=JSON.parse(error.error).message;
-    console.log(error.error);
-    this.msg=undefined});
-  }
-
-
-  update(form:NgForm)
-  {
-    this.refOfUserService.updateUser(this.objOfUser).subscribe((data)=>
-    {
-      console.log("data",data);
-      this.msg=data;
-      this.errorMsg=undefined;
-      this.objOfUser=new User();
-      form.resetForm();
-
-     // this.flag=false;
-  
-  },
-  error=>
-  {
-    //Json.parse function convert string into object to work with
-    console.log(error.error);
-    this.msg=undefined});
   }
 
 }

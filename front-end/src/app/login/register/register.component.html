@@ -1,0 +1,37 @@
+
+<section class="col-md-4 mx-auto">
+    <div class="mt-2 text-center"> <b>Register for new account </b></div>
+    <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+    <div class="alert alert-danger" *ngIf="errorMsg != undefined" [innerHTML] = "errorMsg"></div>
+  
+  
+  <form  #formdata="ngForm" (ngSubmit)="addUser(formdata)">
+  
+  <div>User Name</div>
+  <div><input type="text" placeholder="Enter your full name" name="uname" [(ngModel)]="objOfUser.userName" #un="ngModel" required class="form-control" /></div>
+  <div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="un.invalid && un.touched" > *User name is required </div>
+  <br>
+  <div>Phone Number</div>
+  <div><input type="text" placeholder="Enter phone number" name="phone" [(ngModel)]="objOfUser.phoneNumber" #um="ngModel" required class="form-control" ></div>
+  <div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="um.invalid && um.touched" > *Phone number is required</div>
+  <br>
+  <div>Email ID</div>
+  <div><input type="email" placeholder="Enter the email address" name="email" [(ngModel)]="objOfUser.email" #ue="ngModel" required class="form-control" ></div>
+  <div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="ue.invalid && ue.touched" > *Email id is required</div>
+  <br>    
+  <div>Password</div>
+  <div><input type="password" placeholder="Enter the password" name="pass" [(ngModel)]="objOfUser.password" #up="ngModel" required class="form-control" ></div>
+  <div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="up.invalid && up.touched" > *Password is required</div>
+  
+  <div>
+  <input type="submit" value="Register" [disabled]="!formdata.valid" class="btn btn-danger">
+  </div>
+  
+  
+  <div class="mt-2 text-center">
+    <b>Already registered ? </b>
+    <input type="submit" routerLink="/login" value="Login" class="btn btn-success">
+  </div>
+  
+  </form>
+  </section>
