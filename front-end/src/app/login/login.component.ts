@@ -15,10 +15,17 @@ export class LoginComponent implements OnInit {
   msg:string;
   errorMsg:string;
   userid:number;
+  editflag:boolean=false;
   constructor( private refOfUserService:UserService ) { }
 
   ngOnInit(): void {
 
+  }
+
+  logout()
+  {
+    alert("You have been logged out");
+    this.editflag=false;
   }
 
   
@@ -31,8 +38,9 @@ export class LoginComponent implements OnInit {
       this.errorMsg=undefined;
       this.userid=data;
       sessionStorage.setItem('user id',JSON.stringify(this.userid));
-      alert("login successful");
+      alert("You have been successfully logged in");
       form.resetForm();
+      this.editflag=true;
 
     },
     error=>
