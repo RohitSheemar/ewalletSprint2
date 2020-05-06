@@ -1,3 +1,4 @@
+
 <section class="col-md-4 mx-auto" *ngIf="!editflag">
   <div class="mt-2 text-center"> <h4>Login</h4></div>
   <br>
@@ -31,18 +32,17 @@
 
 </section>
 
-
-<div *ngIf="editflag">
+<section class="col-md-4 mx-auto" *ngIf="editflag">
 
   <div style="position:absolute;
-  left: 610px;
-  top: 150px;">
+  left: 160px;
+  top: 50px;">
     <h3>My Account</h3>
   </div>
 
   <div style="position:absolute;
-  left: 580px;
-  top: 230px;">
+  left: 200px;
+  top: 120px;">
     <a class="btn" routerLink="/view">  
       <img src="assets/e2.png" > <br>
       <b>Wallet</b>
@@ -50,11 +50,9 @@
   </div>
 
   <div style="position:absolute;
-  left: 710px;
-  top: 230px;" class="btn" (click)="logout()">
+  left: 200px;
+  top: 250px;" class="btn" (click)="logout()">
     <img src="assets/l2.png" > <br>
     <b>Logout</b>
   </div>
-
-</div>
-
+</section>

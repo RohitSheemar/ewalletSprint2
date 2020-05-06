@@ -13,29 +13,32 @@ export class UpdateComponent implements OnInit {
   objOfUser:User=new User();
   msg: string;
   errorMsg: string;
+  editflag:boolean=false;
 
   constructor( private refOfUserService:UserService ) { }
   ngOnInit(): void {
   }
 
   
+  
   update(form:NgForm)
   {
-    this.refOfUserService.updateUser(this.objOfUser.userID).subscribe((data)=>
+    this.refOfUserService.login(this.objOfUser.phoneNumber ,this.objOfUser.password).subscribe(data=>
     {
-      console.log("data",data);
+      console.log("user id",data);
       this.msg=data;
       this.errorMsg=undefined;
-      this.objOfUser=new User();
+          
+      alert("Mobile number verified. Proceed to update your password");
       form.resetForm();
+      this.editflag=true;
 
-  
-  },
-  error=>
-  {
-    this.errorMsg=JSON.parse(error.error).message;
-    console.log(error.error);
-    this.msg=undefined});
+    },
+    error=>
+      {
+        this.errorMsg=JSON.parse(error.error).message;
+        console.log(error.error);
+        this.msg=undefined});
   }
 
 

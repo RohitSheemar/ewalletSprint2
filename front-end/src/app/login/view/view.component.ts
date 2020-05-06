@@ -9,7 +9,14 @@ export class ViewComponent implements OnInit {
 
   constructor() { }
 
+
   ngOnInit(): void {
+
   }
+
+  uid:string=JSON.parse(localStorage.getItem('userid'));
+
+
+
 
 }

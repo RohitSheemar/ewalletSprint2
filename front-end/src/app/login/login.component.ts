@@ -14,7 +14,6 @@ export class LoginComponent implements OnInit {
   objOfUser:User=new User();
   msg:string;
   errorMsg:string;
-  userid:number;
   editflag:boolean=false;
   constructor( private refOfUserService:UserService ) { }
 
@@ -36,8 +35,23 @@ export class LoginComponent implements OnInit {
       console.log("user id",data);
       this.msg=data;
       this.errorMsg=undefined;
-      this.userid=data;
-      sessionStorage.setItem('user id',JSON.stringify(this.userid));
+      
+      // let userArray;
+      // if(localStorage.getItem('userid')===null)
+      // {
+      //   userArray=[];
+      // }
+      // else
+      // {
+      //   userArray=JSON.parse(localStorage.getItem('userid'));
+      // }
+
+      // userArray.push(data);
+      // localStorage.setItem('userid',JSON.stringify(userArray));
+      
+      localStorage.setItem('userid',JSON.stringify(data));
+
+      
       alert("You have been successfully logged in");
       form.resetForm();
       this.editflag=true;
