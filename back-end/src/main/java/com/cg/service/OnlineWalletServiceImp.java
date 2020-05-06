@@ -26,11 +26,12 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
  	@Override
  	public String login(String phoneNumber, String password) throws UserException{   
      	if(dao.checkUserByEmail(phoneNumber)==false)
-     		throw new UserException("The entered User does not exist, Please enter a valid phone number");
+     		throw new UserException("User does not exist, Please enter the registered phone number");
+     	
      	WalletUser user=dao.getUserByEmail(phoneNumber);
-
+     	
      	if(user.getPassword().equals(password)==false)
-     		throw new UserException("The phone and password Combination does not match");
+     		throw new UserException("Phone number and password does not match");
 
      	System.out.println("Login successful with phone number "+user.getPhoneNumber() );
 

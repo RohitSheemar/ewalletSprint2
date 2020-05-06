@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -62,20 +61,20 @@ public class OnlineWalletDaoImp implements OnlineWalletDao {
 
 	// login function, checking whether account exist or not
 	@Override
-	public boolean checkUserByEmail(String phoneNumber) throws NoResultException{
+	public boolean checkUserByEmail(String phoneNumber){
    		String Qstr="SELECT user.phoneNumber FROM WalletUser user WHERE user.phoneNumber= :phoneNumber";
    		
    	   	TypedQuery<String> query=entityManager.createQuery(Qstr, String.class).setParameter("phoneNumber",phoneNumber);
-   	   	
-	   	String ph=query.getSingleResult();
    	   	try
    	   	{
+   	   		String ph=query.getSingleResult();
    	   		ph.equals(phoneNumber);
    	   	}
-   	   	catch(NoResultException ex)
+   	   	catch(Exception ex)
    	   	{
-   	   		throw new NoResultException("user not exist");
+   	   		return false;
    	   	}
+   	   	
    	   	return true;
    	   	
    	}
@@ -93,7 +92,7 @@ public class OnlineWalletDaoImp implements OnlineWalletDao {
 	
 	
 	
-	
+	//update password
 	public List<WalletUser> viewUser()
 	{
 		Query query=entityManager.createQuery("from User u");
