@@ -1,8 +1,12 @@
 package com.cg.dao;
 
+import java.util.List;
+import java.util.Optional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -87,18 +91,33 @@ public class OnlineWalletDaoImp implements OnlineWalletDao {
 	}
 	
 	
-	// update password function
-		@Override
-		public boolean update(WalletUser user, int userID) {
-			  WalletUser userUpdate= entityManager.find(WalletUser.class, userID);
-			  if(userUpdate==null) return false;
-			  
-			  userUpdate.setPassword(user.getPassword() );
-			 
-			  entityManager.persist(userUpdate);
-			  
-			  return true;
-			
-		}
+	
+	
+	
+	public List<WalletUser> viewUser()
+	{
+		Query query=entityManager.createQuery("from User u");
+		return query.getResultList();
+	}
 
+
+	@Override
+	public WalletUser viewUser(String phoneNumber)
+	{
+		List<WalletUser> list=viewUser();
+		WalletUser user=null;
+		Optional <WalletUser> optional=list.stream().
+				filter(u1->u1.getPhoneNumber().equals(phoneNumber)).findFirst();
+				if(optional.isPresent()) {
+					user=optional.get();
+				}
+		return user;
+		
+	}
+	
+	public String updatePassword(WalletUser user) {
+		entityManager.merge(user);
+		return "Updated successfully";
+	}
+	
 }

@@ -76,18 +76,13 @@ public class WalletController {
 	
 	// update user function using userId
 	@CrossOrigin
-	@PutMapping("/update/{userId}")
-	public String updateUser(@PathVariable("userID") int userID, @RequestBody WalletUser user) throws UserException{
-		System.out.println(user.toString());
-		try {
-			String message = service.updateUser(user, userID);
-		    return message;
-		}
-		catch(Exception e) {
-		    throw new UserException(e.getMessage());
-		}
+	@PutMapping("/update")
+	public String updatePassword(@RequestBody WalletUser user) throws UserException{
+		return service.updatePassword(user);
 	}
 
+	
+	
 	
 		
 }

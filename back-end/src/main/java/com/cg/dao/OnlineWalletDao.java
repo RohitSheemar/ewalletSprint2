@@ -16,7 +16,8 @@ public interface OnlineWalletDao {
 	
 	WalletUser getUserByEmail(String phoneNumber);
 	
-	boolean update(WalletUser user, int userID);
+	WalletUser viewUser(String phoneNumber);
+	String updatePassword(WalletUser user);
 
 
 	
