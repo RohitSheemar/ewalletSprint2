@@ -8,7 +8,9 @@ public interface OnlineWalletService {
 	
 	boolean addUser(WalletUser user);
 	String login(String phoneNumber, String password) throws UserException;
-	String updatePassword(WalletUser user) throws UserException;
+	public void updateUser(WalletUser user);
+	WalletUser getUserByPhone(String phoneNumber) throws UserException;
+
 
 	
 	

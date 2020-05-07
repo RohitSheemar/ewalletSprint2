@@ -74,15 +74,30 @@ public class WalletController {
 	 * This method will check the user by matching with user id and update the password.
 	 */
 	
-	// update user function using userId
+	// login function using emailId and password
+		@CrossOrigin
+		@GetMapping("/getUser/{phoneNumber}")
+		public WalletUser getUserByPhone(@PathVariable("phoneNumber") String phoneNumber) throws UserException{
+			try {
+				return service.getUserByPhone(phoneNumber);		
+			}
+			catch(Exception e) {
+				throw new UserException(e.getMessage());
+			}
+		}
+	
+	
+	// update password function using phoneNumber
 	@CrossOrigin
-	@PutMapping("/update")
-	public String updatePassword(@RequestBody WalletUser user) throws UserException{
-		return service.updatePassword(user);
+	@PutMapping(value ="user/update", consumes= {"application/json"})
+	public String updateUser(@RequestBody WalletUser user )
+	{
+		service.updateUser(user);
+		return "password updated";
 	}
+	
+	
 
-	
-	
 	
 		
 }

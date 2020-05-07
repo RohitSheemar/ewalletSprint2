@@ -89,34 +89,19 @@ public class OnlineWalletDaoImp implements OnlineWalletDao {
    		
 	}
 	
-	
-	
-	
-	//update password
-	public List<WalletUser> viewUser()
-	{
-		Query query=entityManager.createQuery("from User u");
-		return query.getResultList();
-	}
-
-
 	@Override
-	public WalletUser viewUser(String phoneNumber)
-	{
-		List<WalletUser> list=viewUser();
-		WalletUser user=null;
-		Optional <WalletUser> optional=list.stream().
-				filter(u1->u1.getPhoneNumber().equals(phoneNumber)).findFirst();
-				if(optional.isPresent()) {
-					user=optional.get();
-				}
-		return user;
-		
+	public void updateUser(WalletUser user) {
+
+       WalletUser newUser = entityManager.find(WalletUser.class, user.getPhoneNumber() );
+       
+       if(newUser != null)
+       {
+       newUser.setPassword(user.getPassword());
+       }
+      		
 	}
 	
-	public String updatePassword(WalletUser user) {
-		entityManager.merge(user);
-		return "Updated successfully";
-	}
+
 	
+
 }

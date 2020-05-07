@@ -61,33 +61,28 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 	 * This method will update the user password if user id exist in database. 
 	 */
 	
-	public WalletUser viewUser(String phoneNumber) {
-		return dao.viewUser(phoneNumber);
+	@Override
+	public void updateUser(WalletUser user) {
+
+        dao.updateUser(user);
+		
 	}
 	
-		
 	
-		public String updatePassword(WalletUser user) throws UserException{
-			String phoneNumber=user.getPhoneNumber();
-			
-			
-			WalletUser user1 =viewUser(phoneNumber);
-			
-			if(user1!=null)
-			{
-			
-			  dao.updatePassword(user);
-			  return "Password Updated Successfully";
-			 
-			}
-			else
-			{
-				throw new UserException("Phone Number does not exist in the database");
-			}
-			
-		}	
 	
-
+	
+	@Override
+ 	public WalletUser getUserByPhone(String phoneNumber) throws UserException{   
+     	if(dao.checkUserByEmail(phoneNumber)==false)
+     		throw new UserException("User does not exist, Please enter the registered phone number");
+     	
+     	WalletUser user=dao.getUserByEmail(phoneNumber);
+     	
+     	return user ;
+     	
+     }
+	
+	
 		
 
     	
