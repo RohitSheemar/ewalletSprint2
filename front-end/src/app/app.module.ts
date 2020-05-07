@@ -10,6 +10,7 @@ import { RegisterComponent } from './login/register/register.component';
 import { UpdateComponent } from './login/update/update.component';
 import { ViewComponent } from './login/view/view.component';
 import { LoggedinComponent } from './login/loggedin/loggedin.component';
+import { ResetComponent } from './login/update/reset/reset.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { LoggedinComponent } from './login/loggedin/loggedin.component';
     UpdateComponent,
     ViewComponent,
     LoggedinComponent,
+    ResetComponent,
   ],
   imports: [
     BrowserModule,

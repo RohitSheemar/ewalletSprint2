@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/user';
 import { UserService } from 'src/app/user.service';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update',
@@ -15,23 +16,37 @@ export class UpdateComponent implements OnInit {
   errorMsg: string;
   editflag:boolean=false;
 
-  constructor( private refOfUserService:UserService ) { }
+  index:number;
+
+  user:User[];
+
+  
+  
+  constructor( private refOfUserService:UserService, private router:Router ) { }
+
   ngOnInit(): void {
   }
 
   
-  
-  update(form:NgForm)
+  getUserByPhone()
   {
-    this.refOfUserService.login(this.objOfUser.phoneNumber ,this.objOfUser.password).subscribe(data=>
+    this.refOfUserService.get(this.objOfUser.phoneNumber).subscribe(data=>
     {
-      console.log("user id",data);
+      console.log("user",data);
       this.msg=data;
       this.errorMsg=undefined;
           
       alert("Mobile number verified. Proceed to update your password");
-      form.resetForm();
-      this.editflag=true;
+
+
+
+      this.refOfUserService.setUser(data);
+
+
+      this.router.navigateByUrl('/reset');
+
+
+
 
     },
     error=>
@@ -40,6 +55,9 @@ export class UpdateComponent implements OnInit {
         console.log(error.error);
         this.msg=undefined});
   }
+
+
+
 
 
 }

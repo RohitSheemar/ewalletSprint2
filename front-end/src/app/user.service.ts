@@ -8,7 +8,23 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
+  user:User = new User();
+  
   constructor(private http:HttpClient) { }
+
+
+
+  setUser(user:User)
+  {
+    this.user= user;
+  }
+
+
+  getUser():User
+  {
+    return this.user;
+  }
+
 
 
 
@@ -24,11 +40,18 @@ export class UserService {
     return this.http.post(url,userRef,{responseType:'text'});
   }
 
-  public updateUser(userId:number):Observable<any>
+  public get(phoneNumber:string):Observable<any>
   {
-    return this.http.put("http://localhost:1080/update/"+userId,{responseType:'text'});
+    return this.http.get("http://localhost:1080/getUser/"+phoneNumber,{responseType:'text'});
+
   }
 
+
+  public update(userRef:User):Observable<any>
+  {
+    let url = "http://localhost:1080/user/update";
+    return this.http.put(url,userRef,{responseType:'text'});
+  }
 
 
 }

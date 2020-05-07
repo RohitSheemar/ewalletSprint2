@@ -1,0 +1,11 @@
+input
+{
+    margin: 7px 5px;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+
+div
+{
+    border-radius: 15px;
+}

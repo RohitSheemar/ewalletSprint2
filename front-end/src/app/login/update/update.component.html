@@ -1,10 +1,10 @@
-<section class="col-md-4 mx-auto" *ngIf="!editflag"> 
+<section class="col-md-4 mx-auto" > 
     <div class="mt-2 text-center"> <b>Forgot Password</b></div>
     <br>
     <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
     <div class="alert alert-danger" *ngIf="errorMsg != undefined" [innerHTML] = "errorMsg"></div>
   
-  <form  #formdata="ngForm" novalidate (ngSubmit)="update(formdata)">
+  <form  #formdata="ngForm" novalidate (ngSubmit)="getUserByPhone()">
   
     <div>Mobile Number</div>
     <div><input type="number" placeholder="Enter the registered mobile number" name="userId" [(ngModel)]="objOfUser.phoneNumber" #ue="ngModel" required class="form-control" ></div>
@@ -26,6 +26,7 @@
     <b> Don't have an account?  </b> 
     <input type="submit" routerLink="/register" value="Register" class="btn btn-danger">
   </div>
+
   </form>
    
   </section>
@@ -34,16 +35,3 @@
 
 
 
-
- <section class="col-md-4 mx-auto" *ngIf="editflag"> 
-    <div class="mt-2 text-center"> <b>Forgot Password</b></div>
-    <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
-    <div class="alert alert-danger" *ngIf="errorMsg != undefined" [innerHTML] = "errorMsg"></div>
-  
-  <form  #formdata="ngForm" novalidate (ngSubmit)="update(formdata)">
-  <div>Password</div>
-  <div><input type="password" placeho  lder="Enter the new password" name="pass" [(ngModel)]="objOfUser.password" #up="ngModel" required class="form-control" ></div>
-  <div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="up.invalid && up.touched" > *Password is required</div>
-
-  </form>
-  </section>
