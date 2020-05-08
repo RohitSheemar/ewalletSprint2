@@ -12,7 +12,7 @@
   <div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="un.invalid && un.touched" > *User name is required </div>
   <br>
   <div>Phone Number</div>
-  <div><input type="text" placeholder="Enter phone number" name="phone" [(ngModel)]="objOfUser.phoneNumber" #um="ngModel" required class="form-control" ></div>
+  <div><input type="number" placeholder="Enter phone number" name="phone" [(ngModel)]="objOfUser.phoneNumber" #um="ngModel" required class="form-control" ></div>
   <div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="um.invalid && um.touched" > *Phone number is required</div>
   <br>
   <div>Email ID</div>

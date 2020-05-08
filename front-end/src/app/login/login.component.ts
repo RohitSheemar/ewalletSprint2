@@ -18,13 +18,14 @@ export class LoginComponent implements OnInit {
   constructor( private refOfUserService:UserService ) { }
 
   ngOnInit(): void {
-
   }
 
   logout()
   {
     alert("You have been logged out");
     this.editflag=false;
+    localStorage.removeItem('userid');
+
   }
 
   

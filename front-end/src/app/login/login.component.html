@@ -7,7 +7,7 @@
 <form  #formdata="ngForm" (ngSubmit)="loginUser(formdata)">
 
 <div>Phone number</div>
-<div ><input type="text" placeholder="Enter the phone number" name="phone" [(ngModel)]="objOfUser.phoneNumber " #ue="ngModel" required class="form-control" ></div>
+<div ><input type="number" placeholder="Enter the phone number" name="phone" [(ngModel)]="objOfUser.phoneNumber " #ue="ngModel" required class="form-control" ></div>
 <div style="margin: 7px; padding: 7px; width: 100%;" class="alert alert-danger" *ngIf="ue.invalid && ue.touched" > *Phone number is required</div>
 <br>   
 <div>Password</div>

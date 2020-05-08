@@ -17,6 +17,7 @@ export class LoggedinComponent implements OnInit {
   {
     alert("You have been logged out");
     this.router.navigateByUrl('/login');
+    localStorage.removeItem('userid');
 
   }
 
