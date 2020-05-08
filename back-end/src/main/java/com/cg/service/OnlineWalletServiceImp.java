@@ -25,13 +25,13 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
  // login function, validating email id and password
  	@Override
  	public String login(String phoneNumber, String password) throws UserException{   
-     	if(dao.checkUserByEmail(phoneNumber)==false)
+     	if(dao.checkUserByPhone(phoneNumber)==false)
      		throw new UserException("User does not exist, Please enter the registered phone number");
      	
-     	WalletUser user=dao.getUserByEmail(phoneNumber);
+     	WalletUser user=dao.getUserByPhone(phoneNumber);
      	
      	if(user.getPassword().equals(password)==false)
-     		throw new UserException("Phone number and password does not match");
+     		throw new UserException("Invalid phone number or password.");
 
      	System.out.println("Login successful with phone number "+user.getPhoneNumber() );
 
@@ -50,6 +50,7 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 
 	@Override
 	public boolean addUser(WalletUser user) {
+		
 		WalletAccount account=new WalletAccount(0.00,null);
 		dao.persistAccount(account);
 		user.setAccountDetail(account);
@@ -57,8 +58,26 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
 
 	}
 	
+		
+	
 	/*
-	 * This method will update the user password if user id exist in database. 
+	 * This method will check for the user exist in database or not.
+	 */
+	
+	@Override
+ 	public WalletUser getUserByPhone(String phoneNumber) throws UserException{   
+     	if(dao.checkUserByPhone(phoneNumber)==false)
+     		throw new UserException("User does not exist, Please enter the registered phone number");
+     	
+     	WalletUser user=dao.getUserByPhone(phoneNumber);
+     	
+     	return user ;
+     	
+     }
+	
+	
+	/*
+	 * This method will update the user password if mobile number exist in database. 
 	 */
 	
 	@Override
@@ -67,20 +86,7 @@ public class OnlineWalletServiceImp implements OnlineWalletService {
         dao.updateUser(user);
 		
 	}
-	
-	
-	
-	
-	@Override
- 	public WalletUser getUserByPhone(String phoneNumber) throws UserException{   
-     	if(dao.checkUserByEmail(phoneNumber)==false)
-     		throw new UserException("User does not exist, Please enter the registered phone number");
-     	
-     	WalletUser user=dao.getUserByEmail(phoneNumber);
-     	
-     	return user ;
-     	
-     }
+
 	
 	
 		

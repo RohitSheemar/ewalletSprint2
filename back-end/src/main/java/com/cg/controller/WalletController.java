@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.entities.WalletUser;
+import com.cg.exceptions.UnauthorizedAccessException;
 import com.cg.exceptions.UserException;
 import com.cg.service.*;
 
@@ -28,36 +29,37 @@ public class WalletController {
 	
 	
 	/*
+	 * This method will call the service class to check if the user already exist or not.
 	 * This method will add the user into user table if user enters all the details correctly.
 	 */
 	
 	@CrossOrigin
 	@PostMapping("/add")
-	public String addUser(@Valid @RequestBody WalletUser user, BindingResult br) throws UserException{
+	public String addUser(@Valid @RequestBody WalletUser user, BindingResult br) throws UnauthorizedAccessException{
 		
 		String err="";
 		if(br.hasErrors()) {
 			List<FieldError> errors=br.getFieldErrors();
 			for(FieldError error : errors)
 				err= err + error.getDefaultMessage() + "<br>";
-			throw new UserException(err);
+			throw new UnauthorizedAccessException(err);
 		}
 		try {
 			service.addUser(user);
-			return "The User is Registered successfully" ;
+			return "The User is registered successfully" ;
 		}
 		catch(DataIntegrityViolationException ex) {
-			throw new UserException("Please enter valid user details");
+			throw new UnauthorizedAccessException("The user already exists. Please enter valid details");
 		}
 	}
 
 	
 	/*
+	 * This method will first check whether the user with entered mobile exist or not.
+	 * If user mobile number exist then it will match the password to get user logged in.
 	 * This method will return the wallet account of user if the login credentials are correct.
 	 */	
-	
-	
-	// login function using emailId and password
+		
 	@CrossOrigin
 	@GetMapping("/login/{phoneNumber}/{password}")
 	public String login(@PathVariable("phoneNumber") String phoneNumber, @PathVariable("password") String password) throws UserException{
@@ -71,20 +73,20 @@ public class WalletController {
 	}
 	
 	/*
-	 * This method will check the user by matching with user id and update the password.
+	 * This method will check the user by matching with mobile number.
+	 * If mobile number exist then it will give the user account to update.
 	 */
 	
-	// login function using emailId and password
-		@CrossOrigin
-		@GetMapping("/getUser/{phoneNumber}")
-		public WalletUser getUserByPhone(@PathVariable("phoneNumber") String phoneNumber) throws UserException{
-			try {
-				return service.getUserByPhone(phoneNumber);		
-			}
-			catch(Exception e) {
-				throw new UserException(e.getMessage());
-			}
+	@CrossOrigin
+	@GetMapping("/getUser/{phoneNumber}")
+	public WalletUser getUserByPhone(@PathVariable("phoneNumber") String phoneNumber) throws UserException{
+		try {
+			return service.getUserByPhone(phoneNumber);		
 		}
+		catch(Exception e) {
+			throw new UserException(e.getMessage());
+		}
+	}
 	
 	
 	// update password function using phoneNumber

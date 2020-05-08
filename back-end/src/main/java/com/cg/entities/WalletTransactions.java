@@ -2,7 +2,7 @@ package com.cg.entities;
 
 import javax.persistence.*;
 @Entity
-@Table(name="ew_trans")
+@Table(name="capg_trans")
 public class WalletTransactions  {
 	
 	@Id
@@ -16,7 +16,6 @@ public class WalletTransactions  {
 
 	public WalletTransactions() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getTransactionID() {

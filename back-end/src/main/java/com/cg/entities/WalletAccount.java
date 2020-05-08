@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
-@Table(name="ew_acc")
+@Table(name="capg_acc")
 public class WalletAccount {
 	
 	@Id
@@ -21,7 +21,6 @@ public class WalletAccount {
 
 	public WalletAccount() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public int getAccountID() {

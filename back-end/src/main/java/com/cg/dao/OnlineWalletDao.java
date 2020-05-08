@@ -12,9 +12,9 @@ public interface OnlineWalletDao {
 
 	boolean addUser(WalletUser user);
 
-	boolean checkUserByEmail(String phoneNumber);
+	boolean checkUserByPhone(String phoneNumber);
 	
-	WalletUser getUserByEmail(String phoneNumber);
+	WalletUser getUserByPhone(String phoneNumber);
 	
 	public void updateUser(WalletUser user);
 
